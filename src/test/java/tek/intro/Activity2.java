@@ -2,19 +2,15 @@ package tek.intro;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class HendleBrowser {
+public class Activity2 {
     public static void main(String[] args) {
         //Open Browser Chrome Browser
         ChromeDriver chromeDriver = new ChromeDriver();
         //Navigate to URL
-        chromeDriver.get("https://google.com");
+        chromeDriver.get("https://dev.insurance.tekschool-students.com/");
+        chromeDriver.manage().window().maximize();
+        String title = chromeDriver.getTitle();
 
-
-
-
-        //to Close browser entirely
-        // chromeDriver.quit();
-
-
-    }
+        chromeDriver.quit();
+}
 }
