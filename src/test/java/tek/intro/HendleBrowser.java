@@ -4,17 +4,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class HendleBrowser {
     public static void main(String[] args) {
-        //Open Browser Chrome Browser
+        // open browser chrome driver
         ChromeDriver chromeDriver = new ChromeDriver();
-        //Navigate to URL
-        chromeDriver.get("https://google.com");
-
-
-
-
-        //to Close browser entirely
-        // chromeDriver.quit();
-
+        // use this method to maximize the browser
+        chromeDriver.manage().window().maximize();
+        // use this method to minimize the browser
+        chromeDriver.manage().window().minimize();
+        // navigate to URL
+        chromeDriver.get("http://google.com");
+        // return string of application title
+        String title = chromeDriver.getTitle();
+        System.out.println(title);
+        // close the browser
+        chromeDriver.quit();
 
     }
 }
