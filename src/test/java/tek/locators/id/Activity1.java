@@ -39,7 +39,8 @@ public class Activity1 {
         loginBtnElement.click();
      //Locate the element
         By searchInputLocator = By.id("SearchInput");
-        //find the element
+
+        //Find the element
         WebElement searchInputElement = driver.findElement(searchInputLocator);
 
     }
