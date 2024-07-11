@@ -6,27 +6,26 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class UsingLocators {
+
     public static void main(String[] args) throws InterruptedException {
+
         WebDriver driver = new ChromeDriver();
         Thread.sleep(3000);
+
         driver.manage().window().maximize();
         driver.get("https://retail.tekschool-students.com/");
-        //Locate the element
-        By searchInputLocator = By.id("SearchInput");
-        //find the element
+
+        //Locate the element.
+        By searchInputLocator = By.id("searchInput");
+        //find the Element
         WebElement searchInputElement = driver.findElement(searchInputLocator);
-        //Perform the action
+        //Perform the Action
         searchInputElement.sendKeys("TV");
+        Thread.sleep(3000);
 
         By searchBtnLocator = By.id("searchBtn");
         WebElement searchBtnElement = driver.findElement(searchBtnLocator);
         searchBtnElement.click();
-
-
-
-
-
-
 
 
 

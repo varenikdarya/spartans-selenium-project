@@ -6,16 +6,33 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Activity1 {
+    /*
+    In Retail App click on Sign in then enter email and password
+    then Click on Login
+    Push to your github repository
+     */
+
     public static void main(String[] args) throws InterruptedException {
         WebDriver driver = new ChromeDriver();
         Thread.sleep(3000);
         driver.manage().window().maximize();
         driver.get("https://retail.tekschool-students.com/");
-        //Locate the element
-        By searchInputLocator = By.id("SearchInput");
-        //find the element
-        WebElement searchInputElement = driver.findElement(searchInputLocator);
 
+        By signInLocator = By.id("signinLink");
+        WebElement signInElement = driver.findElement(signInLocator);
+        signInElement.click();
 
+        By emailInputLocator = By.id("email");
+        WebElement emailInputElement = driver.findElement(emailInputLocator);
+
+        emailInputElement.sendKeys("darya@gmail.com");
+
+        By passwordLocator = By.id("password");
+        WebElement passwordElement = driver.findElement(passwordLocator);
+        passwordElement.sendKeys("Darya123!");
+
+        By loginBtnLocator = By.id("loginBtn");
+        WebElement loginBtnElement = driver.findElement(loginBtnLocator);
+        loginBtnElement.click();
     }
 }
