@@ -9,36 +9,80 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class Activity1 {
-    public static void main(String[] args) throws InterruptedException {
+    /*
+   in retail sign in with valid credentials and go to account page.
+   update phone number. and validate Success toast is displayed.
+   your test should work without changing multiple time.
+   Apply implicit and explicit wait.
+   use any locators available and you like.
+   push to repository.
+    */
+    public static void main(String[] args) {
         WebDriver driver = new ChromeDriver();
-        Thread.sleep(3000);
-        driver.manage().window().maximize();
         driver.get("https://retail.tekschool-students.com/");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
-        WebDriverWait explicitWait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        driver.manage().window().maximize();
 
-        WebElement SignInElement  = driver.findElement(By.id("signinLink"));
-        explicitWait.until(ExpectedConditions.visibilityOf(SignInElement)).click();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
-       WebElement EmailElement = driver.findElement(By.id("email"));
-       explicitWait.until(ExpectedConditions.visibilityOf(EmailElement)).sendKeys("darya@gmail.com");
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Sign in")))
+                .click();
 
-        WebElement PasswordFieldElement = driver.findElement(By.id("password"));
-        explicitWait.until(ExpectedConditions.visibilityOf(PasswordFieldElement)).sendKeys("Darya123!");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("email")))
+                .sendKeys("mohammad2536@gmail.com");
 
-        WebElement LoginBtnFieldElement = driver.findElement(By.id("loginBtn"));
-        explicitWait.until(ExpectedConditions.visibilityOf(LoginBtnFieldElement)).click();
-        Thread.sleep(5000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("password")))
+                .sendKeys("Password@123");
 
-        WebElement phoneNumberElement =   driver.findElement(By.xpath("//input[@id='personalPhoneInput']"));
-        explicitWait.until(ExpectedConditions.visibilityOf(phoneNumberElement)).clear();
-        phoneNumberElement.sendKeys("7048523695");
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("loginBtn")))
+                .click();
 
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Account")))
+                .click();
 
+        WebElement phoneElement = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.name("phoneNumber")));
 
+        phoneElement.clear();
+        String number = getRandomPhoneNumber();
+        System.out.println("random number " + number);
+        phoneElement.sendKeys(number);
 
+        wait.until(ExpectedConditions.elementToBeClickable(By.id("personalUpdateBtn")))
+                .click();
+
+        boolean isToastDisplayed = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.className("Toastify"))).isDisplayed();
+
+        String toastText = wait.until(ExpectedConditions
+                        .visibilityOfElementLocated(
+                                By.cssSelector(".Toastify div.Toastify__toast-body > div:last-child")))
+                .getText();
+        System.out.println(toastText);
+        if (isToastDisplayed)
+            System.out.println("Test Passed Toast Displayed");
+        else
+            System.out.println("Test Failed");
+
+        driver.quit();
+    }
+
+    private static String getRandomPhoneNumber() {
+
+        
+        Random random = new Random();
+        // Generate 10 random digits and concatenate them to form a 10-digit number
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 10; i++) {
+            // Generate a random digit between 0 and 9
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+        // Convert StringBuilder to String
+        return sb.toString();
     }
 }
